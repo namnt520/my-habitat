@@ -1,0 +1,24 @@
+{
+  "kind": "field",
+  "key": "insects",
+  "name": "Côn trùng",
+  "nameEn": "Insects",
+  "role": "Ăn cỏ",
+  "mechanism": "Mô phỏng theo mật độ: số lượng rất lớn, vòng đời rất ngắn, bùng nổ khi ấm và sụp khi có sương giá",
+  "trophicLevel": 2,
+  "color": "#fdd835",
+  "params": {
+    "consumption": 0.09,
+    "halfSaturation": 120,
+    "grassFloor": 4,
+    "shrubShare": 0.2,
+    "assimilation": 0.6,
+    "respiration": 0.008,
+    "mortality": 0.002,
+    "crowding": 0.01,
+    "frostMortality": 0,
+    "dispersal": 0.008,
+    "activityMin": 2,
+    "activityFull": 13
+  }
+}

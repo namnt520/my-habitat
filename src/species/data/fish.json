@@ -1,0 +1,177 @@
+{
+  "kind": "animal",
+  "key": "fish",
+  "name": "Cá",
+  "nameEn": "Fish",
+  "role": "Dưới nước",
+  "mechanism": "Chỉ sống dưới nước, ăn tảo, bơi theo đàn; mắc cạn khi hồ cạn",
+  "trophicLevel": 2,
+  "starting": true,
+  "initialCount": 900,
+  "spawnCluster": 8,
+  "habitat": "water",
+  "locomotion": "water",
+  "canSwim": true,
+  "nocturnal": false,
+  "ectotherm": true,
+  "burrows": false,
+  "body": {
+    "mass": 25,
+    "reserveRatio": 0.9,
+    "walkSpeed": 0.5,
+    "runSpeed": 1.7,
+    "vision": 28,
+    "nightVision": 0.7,
+    "reach": 3,
+    "attack": 0,
+    "defense": 0,
+    "metabolism": 0.5,
+    "moveCost": 1,
+    "intake": 0.06,
+    "thirst": 0,
+    "comfortLow": 0,
+    "comfortHigh": 35,
+    "meatAssimilation": 0,
+    "endurance": 40
+  },
+  "life": {
+    "maturity": 600,
+    "lifespan": 4800,
+    "gestation": 0,
+    "litter": 6,
+    "cooldown": 1300,
+    "breedingSeasons": [0, 1],
+    "mode": "spawn",
+    "mateRange": 80,
+    "birthMass": 0.025,
+    "offspringReserve": 1.0,
+    "larvaUntil": 0,
+    "weanAge": 0,
+    "growth": 0.03,
+    "motherReserve": 0.2,
+    "territory": 0
+  },
+  "genes": [
+    {
+      "name": "speed",
+      "label": "Tốc độ",
+      "min": 0.6,
+      "max": 1.6,
+      "mean": 1.0,
+      "sd": 0.05
+    },
+    {
+      "name": "vision",
+      "label": "Tầm nhìn",
+      "min": 0.6,
+      "max": 1.6,
+      "mean": 1.0,
+      "sd": 0.05
+    },
+    {
+      "name": "size",
+      "label": "Kích thước",
+      "min": 0.6,
+      "max": 1.7,
+      "mean": 1.0,
+      "sd": 0.05
+    },
+    {
+      "name": "reproThreshold",
+      "label": "Ngưỡng sinh sản",
+      "min": 0.35,
+      "max": 0.95,
+      "mean": 0.5,
+      "sd": 0.04
+    },
+    {
+      "name": "hue",
+      "label": "Sắc độ lông",
+      "min": 0.4,
+      "max": 0.7,
+      "mean": 0.55,
+      "sd": 0.012
+    },
+    {
+      "name": "lightness",
+      "label": "Độ sáng lông",
+      "min": 0.1,
+      "max": 0.9,
+      "mean": 0.5,
+      "sd": 0.04
+    },
+    {
+      "name": "coldTolerance",
+      "label": "Chịu lạnh (lông dày)",
+      "min": 0.0,
+      "max": 1.0,
+      "mean": 0.4,
+      "sd": 0.06
+    },
+    {
+      "name": "schooling",
+      "label": "Tính bầy đàn",
+      "min": 0,
+      "max": 1,
+      "mean": 0.6,
+      "sd": 0.08
+    },
+    {
+      "name": "litterSize",
+      "label": "Cỡ ổ trứng",
+      "min": 2,
+      "max": 12,
+      "mean": 6,
+      "sd": 0.6
+    }
+  ],
+  "behaviors": [
+    {
+      "use": "flee",
+      "params": {
+        "refuge": "none",
+        "panic": 0.7,
+        "distance": 40
+      }
+    },
+    {
+      "use": "herd",
+      "params": {
+        "gene": "schooling",
+        "spacing": 18
+      }
+    },
+    {
+      "use": "forage",
+      "params": {
+        "sources": [
+          {
+            "field": "algae",
+            "assimilation": 0.5,
+            "floor": 1.0,
+            "halfSaturation": 2.5,
+            "water": 0
+          }
+        ],
+        "searchRadius": 3
+      }
+    },
+    {
+      "use": "mate"
+    },
+    {
+      "use": "rest"
+    },
+    {
+      "use": "wander",
+      "params": {
+        "range": 50,
+        "followKin": true
+      }
+    }
+  ],
+  "appearance": {
+    "shape": "fish",
+    "saturation": 0.5
+  }
+}

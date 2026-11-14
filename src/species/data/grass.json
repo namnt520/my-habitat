@@ -1,0 +1,21 @@
+{
+  "kind": "field",
+  "key": "grass",
+  "name": "Cỏ",
+  "nameEn": "Grass",
+  "role": "Sinh vật sản xuất",
+  "mechanism": "Mọc lan sang ô bên cạnh; tốc độ mọc phụ thuộc nước, đất, mùa, bóng rừng",
+  "trophicLevel": 1,
+  "color": "#7cb342",
+  "params": {
+    "growthRate": 0.004,
+    "capacity": 200,
+    "spread": 0.05,
+    "senescence": 0.0003,
+    "frostLoss": 0.0008,
+    "droughtLoss": 0.003,
+    "shade": 0.7,
+    "hillCapacity": 0.6,
+    "mountainCapacity": 0.08
+  }
+}

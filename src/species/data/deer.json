@@ -1,0 +1,187 @@
+{
+  "kind": "animal",
+  "key": "deer",
+  "name": "Hươu",
+  "nameEn": "Deer",
+  "role": "Ăn cỏ",
+  "mechanism": "Chiến lược K: to, đẻ ít, sống lâu; di chuyển theo đàn, báo động lan truyền",
+  "trophicLevel": 2,
+  "starting": true,
+  "initialCount": 420,
+  "spawnCluster": 12,
+  "habitat": "meadow",
+  "locomotion": "land",
+  "canSwim": true,
+  "nocturnal": false,
+  "ectotherm": false,
+  "burrows": false,
+  "body": {
+    "mass": 500,
+    "reserveRatio": 0.7,
+    "walkSpeed": 0.7,
+    "runSpeed": 2.6,
+    "vision": 80,
+    "nightVision": 0.6,
+    "reach": 6,
+    "attack": 0,
+    "defense": 0.35,
+    "metabolism": 1,
+    "moveCost": 1,
+    "intake": 0.06,
+    "thirst": 0.0015,
+    "comfortLow": 0,
+    "comfortHigh": 28,
+    "meatAssimilation": 0,
+    "endurance": 90
+  },
+  "life": {
+    "maturity": 1300,
+    "lifespan": 11000,
+    "gestation": 800,
+    "litter": 1.15,
+    "cooldown": 200,
+    "breedingSeasons": [2],
+    "mode": "live",
+    "mateRange": 220,
+    "birthMass": 0.08,
+    "offspringReserve": 0.8,
+    "larvaUntil": 0,
+    "weanAge": 320,
+    "growth": 0.022,
+    "motherReserve": 0.35,
+    "territory": 0
+  },
+  "genes": [
+    {
+      "name": "speed",
+      "label": "Tốc độ",
+      "min": 0.6,
+      "max": 1.6,
+      "mean": 1.0,
+      "sd": 0.05
+    },
+    {
+      "name": "vision",
+      "label": "Tầm nhìn",
+      "min": 0.6,
+      "max": 1.6,
+      "mean": 1.0,
+      "sd": 0.05
+    },
+    {
+      "name": "size",
+      "label": "Kích thước",
+      "min": 0.6,
+      "max": 1.7,
+      "mean": 1.0,
+      "sd": 0.05
+    },
+    {
+      "name": "reproThreshold",
+      "label": "Ngưỡng sinh sản",
+      "min": 0.35,
+      "max": 0.95,
+      "mean": 0.6,
+      "sd": 0.04
+    },
+    {
+      "name": "hue",
+      "label": "Sắc độ lông",
+      "min": 0.0,
+      "max": 0.17,
+      "mean": 0.075,
+      "sd": 0.012
+    },
+    {
+      "name": "lightness",
+      "label": "Độ sáng lông",
+      "min": 0.1,
+      "max": 0.9,
+      "mean": 0.45,
+      "sd": 0.04
+    },
+    {
+      "name": "coldTolerance",
+      "label": "Chịu lạnh (lông dày)",
+      "min": 0.0,
+      "max": 1.0,
+      "mean": 0.5,
+      "sd": 0.06
+    },
+    {
+      "name": "herding",
+      "label": "Tính bầy đàn",
+      "min": 0,
+      "max": 1,
+      "mean": 0.6,
+      "sd": 0.08
+    }
+  ],
+  "behaviors": [
+    {
+      "use": "flee",
+      "params": {
+        "refuge": "none",
+        "panic": 0.5
+      }
+    },
+    {
+      "use": "nurse"
+    },
+    {
+      "use": "herd",
+      "params": {
+        "gene": "herding",
+        "spacing": 32
+      }
+    },
+    {
+      "use": "forage",
+      "params": {
+        "sources": [
+          {
+            "field": "grass",
+            "assimilation": 0.5,
+            "floor": 8,
+            "halfSaturation": 70,
+            "water": 1.0
+          },
+          {
+            "field": "shrub",
+            "assimilation": 0.5,
+            "floor": 20,
+            "halfSaturation": 60,
+            "water": 1.0
+          },
+          {
+            "field": "fruit",
+            "assimilation": 0.55,
+            "floor": 0,
+            "halfSaturation": 30,
+            "water": 1.2
+          }
+        ]
+      }
+    },
+    {
+      "use": "drink"
+    },
+    {
+      "use": "mate"
+    },
+    {
+      "use": "rest"
+    },
+    {
+      "use": "wander",
+      "params": {
+        "range": 110,
+        "followKin": true
+      }
+    }
+  ],
+  "appearance": {
+    "shape": "deer",
+    "saturation": 0.4
+  }
+}

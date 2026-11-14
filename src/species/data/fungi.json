@@ -1,0 +1,18 @@
+{
+  "kind": "field",
+  "key": "fungi",
+  "name": "Nấm",
+  "nameEn": "Fungi",
+  "role": "Phân huỷ",
+  "mechanism": "Phân huỷ mùn bã (xác đã rữa, phân, lá rụng) và trả dinh dưỡng khoáng về đất",
+  "trophicLevel": 0,
+  "color": "#bcaaa4",
+  "params": {
+    "uptake": 0.02,
+    "halfSaturation": 40,
+    "efficiency": 0.35,
+    "respiration": 0.003,
+    "spread": 0.05,
+    "aquaticDecay": 0.004
+  }
+}

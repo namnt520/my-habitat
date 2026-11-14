@@ -1,0 +1,198 @@
+{
+  "kind": "animal",
+  "key": "frog",
+  "name": "Ếch",
+  "nameEn": "Frog",
+  "role": "Lưỡng cư",
+  "mechanism": "Nòng nọc dưới nước ăn tảo, ếch lớn lên cạn ăn côn trùng; đẻ trứng dưới nước; ngủ đông",
+  "trophicLevel": 3,
+  "starting": true,
+  "initialCount": 500,
+  "spawnCluster": 1,
+  "habitat": "shore",
+  "locomotion": "amphibious",
+  "canSwim": true,
+  "nocturnal": true,
+  "ectotherm": true,
+  "burrows": false,
+  "body": {
+    "mass": 5,
+    "reserveRatio": 1.0,
+    "walkSpeed": 0.5,
+    "runSpeed": 1.6,
+    "vision": 30,
+    "nightVision": 0.9,
+    "reach": 3,
+    "attack": 0,
+    "defense": 0,
+    "metabolism": 0.35,
+    "moveCost": 1,
+    "intake": 0.06,
+    "thirst": 0.004,
+    "comfortLow": 0,
+    "comfortHigh": 35,
+    "meatAssimilation": 0,
+    "endurance": 20
+  },
+  "life": {
+    "maturity": 420,
+    "lifespan": 3600,
+    "gestation": 0,
+    "litter": 7,
+    "cooldown": 1300,
+    "breedingSeasons": [0, 1],
+    "mode": "spawn",
+    "mateRange": 60,
+    "birthMass": 0.03,
+    "offspringReserve": 1.0,
+    "larvaUntil": 150,
+    "weanAge": 0,
+    "growth": 0.03,
+    "motherReserve": 0.2,
+    "territory": 0
+  },
+  "genes": [
+    {
+      "name": "speed",
+      "label": "Tốc độ",
+      "min": 0.6,
+      "max": 1.6,
+      "mean": 1.0,
+      "sd": 0.05
+    },
+    {
+      "name": "vision",
+      "label": "Tầm nhìn",
+      "min": 0.6,
+      "max": 1.6,
+      "mean": 1.0,
+      "sd": 0.05
+    },
+    {
+      "name": "size",
+      "label": "Kích thước",
+      "min": 0.6,
+      "max": 1.7,
+      "mean": 1.0,
+      "sd": 0.05
+    },
+    {
+      "name": "reproThreshold",
+      "label": "Ngưỡng sinh sản",
+      "min": 0.35,
+      "max": 0.95,
+      "mean": 0.5,
+      "sd": 0.04
+    },
+    {
+      "name": "hue",
+      "label": "Sắc độ lông",
+      "min": 0.1,
+      "max": 0.45,
+      "mean": 0.3,
+      "sd": 0.012
+    },
+    {
+      "name": "lightness",
+      "label": "Độ sáng lông",
+      "min": 0.1,
+      "max": 0.9,
+      "mean": 0.45,
+      "sd": 0.04
+    },
+    {
+      "name": "coldTolerance",
+      "label": "Chịu lạnh (lông dày)",
+      "min": 0.0,
+      "max": 1.0,
+      "mean": 0.4,
+      "sd": 0.06
+    },
+    {
+      "name": "aquatic",
+      "label": "Thiên về nước",
+      "min": 0,
+      "max": 1,
+      "mean": 0.5,
+      "sd": 0.08
+    },
+    {
+      "name": "litterSize",
+      "label": "Cỡ ổ trứng",
+      "min": 2,
+      "max": 14,
+      "mean": 7,
+      "sd": 0.7
+    }
+  ],
+  "behaviors": [
+    {
+      "use": "hibernate",
+      "params": {
+        "below": 7,
+        "wake": 9
+      }
+    },
+    {
+      "use": "flee",
+      "params": {
+        "refuge": "water",
+        "panic": 0.6,
+        "distance": 30
+      }
+    },
+    {
+      "use": "forage",
+      "stage": "larva",
+      "params": {
+        "sources": [
+          {
+            "field": "algae",
+            "assimilation": 0.5,
+            "floor": 0.5,
+            "halfSaturation": 2,
+            "water": 0
+          }
+        ],
+        "searchRadius": 2
+      }
+    },
+    {
+      "use": "forage",
+      "stage": "postLarva",
+      "params": {
+        "sources": [
+          {
+            "field": "insects",
+            "assimilation": 0.7,
+            "floor": 0.05,
+            "halfSaturation": 0.5,
+            "water": 0.5
+          }
+        ],
+        "searchRadius": 2
+      }
+    },
+    {
+      "use": "drink",
+      "stage": "postLarva"
+    },
+    {
+      "use": "mate"
+    },
+    {
+      "use": "rest"
+    },
+    {
+      "use": "wander",
+      "params": {
+        "range": 30,
+        "nearWater": 2
+      }
+    }
+  ],
+  "appearance": {
+    "shape": "frog",
+    "saturation": 0.6
+  }
+}

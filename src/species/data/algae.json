@@ -1,0 +1,17 @@
+{
+  "kind": "field",
+  "key": "algae",
+  "name": "Tảo",
+  "nameEn": "Algae",
+  "role": "Sinh vật sản xuất",
+  "mechanism": "Chỉ sống trong nước; nước nông nhiều ánh sáng thì dày hơn; là nền của chuỗi thức ăn dưới nước",
+  "trophicLevel": 1,
+  "color": "#26a69a",
+  "params": {
+    "growthRate": 0.03,
+    "capacity": 10,
+    "spread": 0.05,
+    "mortality": 0.0015,
+    "depthHalf": 0.04
+  }
+}

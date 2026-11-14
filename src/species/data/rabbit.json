@@ -1,0 +1,172 @@
+{
+  "kind": "animal",
+  "key": "rabbit",
+  "name": "Thỏ",
+  "nameEn": "Rabbit",
+  "role": "Ăn cỏ",
+  "mechanism": "Chiến lược r: đẻ nhiều (gen cỡ lứa), sống ngắn, lớn nhanh",
+  "trophicLevel": 2,
+  "starting": true,
+  "initialCount": 1400,
+  "spawnCluster": 1,
+  "habitat": "meadow",
+  "locomotion": "land",
+  "canSwim": false,
+  "nocturnal": false,
+  "ectotherm": false,
+  "burrows": true,
+  "body": {
+    "mass": 20,
+    "reserveRatio": 0.8,
+    "walkSpeed": 0.7,
+    "runSpeed": 2.3,
+    "vision": 55,
+    "nightVision": 0.5,
+    "reach": 4,
+    "attack": 0,
+    "defense": 0,
+    "metabolism": 1.5,
+    "moveCost": 1,
+    "intake": 0.085,
+    "thirst": 0.002,
+    "comfortLow": 4,
+    "comfortHigh": 30,
+    "meatAssimilation": 0,
+    "endurance": 40
+  },
+  "life": {
+    "maturity": 240,
+    "lifespan": 3600,
+    "gestation": 80,
+    "litter": 4,
+    "cooldown": 600,
+    "breedingSeasons": [0, 1],
+    "mode": "live",
+    "mateRange": 90,
+    "birthMass": 0.1,
+    "offspringReserve": 0.8,
+    "larvaUntil": 0,
+    "weanAge": 50,
+    "growth": 0.02,
+    "motherReserve": 0.25,
+    "territory": 0
+  },
+  "genes": [
+    {
+      "name": "speed",
+      "label": "Tốc độ",
+      "min": 0.6,
+      "max": 1.6,
+      "mean": 1.0,
+      "sd": 0.05
+    },
+    {
+      "name": "vision",
+      "label": "Tầm nhìn",
+      "min": 0.6,
+      "max": 1.6,
+      "mean": 1.0,
+      "sd": 0.05
+    },
+    {
+      "name": "size",
+      "label": "Kích thước",
+      "min": 0.6,
+      "max": 1.7,
+      "mean": 1.0,
+      "sd": 0.05
+    },
+    {
+      "name": "reproThreshold",
+      "label": "Ngưỡng sinh sản",
+      "min": 0.35,
+      "max": 0.95,
+      "mean": 0.7,
+      "sd": 0.04
+    },
+    {
+      "name": "hue",
+      "label": "Sắc độ lông",
+      "min": 0.0,
+      "max": 0.17,
+      "mean": 0.09,
+      "sd": 0.012
+    },
+    {
+      "name": "lightness",
+      "label": "Độ sáng lông",
+      "min": 0.1,
+      "max": 0.9,
+      "mean": 0.5,
+      "sd": 0.04
+    },
+    {
+      "name": "coldTolerance",
+      "label": "Chịu lạnh (lông dày)",
+      "min": 0.0,
+      "max": 1.0,
+      "mean": 0.45,
+      "sd": 0.06
+    },
+    {
+      "name": "litterSize",
+      "label": "Cỡ lứa",
+      "min": 1.5,
+      "max": 8,
+      "mean": 4,
+      "sd": 0.5
+    }
+  ],
+  "behaviors": [
+    {
+      "use": "flee",
+      "params": {
+        "refuge": "forest",
+        "panic": 0.5
+      }
+    },
+    {
+      "use": "nurse"
+    },
+    {
+      "use": "forage",
+      "params": {
+        "sources": [
+          {
+            "field": "grass",
+            "assimilation": 0.5,
+            "floor": 10,
+            "halfSaturation": 90,
+            "water": 1.0
+          },
+          {
+            "field": "fruit",
+            "assimilation": 0.5,
+            "floor": 0,
+            "halfSaturation": 25,
+            "water": 1.2
+          }
+        ]
+      }
+    },
+    {
+      "use": "drink"
+    },
+    {
+      "use": "mate"
+    },
+    {
+      "use": "rest"
+    },
+    {
+      "use": "wander",
+      "params": {
+        "range": 70
+      }
+    }
+  ],
+  "appearance": {
+    "shape": "rabbit",
+    "saturation": 0.35
+  }
+}

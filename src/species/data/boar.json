@@ -1,0 +1,200 @@
+{
+  "kind": "animal",
+  "key": "boar",
+  "name": "Lợn rừng",
+  "nameEn": "Wild boar",
+  "role": "Xâm lấn (ăn tạp)",
+  "mechanism": "Loài xâm lấn do người dùng thả: ăn tạp, đẻ nhiều, không có thiên địch chuyên biệt",
+  "trophicLevel": 2.3,
+  "starting": false,
+  "initialCount": 0,
+  "spawnCluster": 6,
+  "habitat": "forest",
+  "locomotion": "land",
+  "canSwim": true,
+  "nocturnal": false,
+  "ectotherm": false,
+  "burrows": false,
+  "body": {
+    "mass": 260,
+    "reserveRatio": 0.9,
+    "walkSpeed": 0.75,
+    "runSpeed": 2.3,
+    "vision": 60,
+    "nightVision": 0.7,
+    "reach": 6,
+    "attack": 0.4,
+    "defense": 0.8,
+    "metabolism": 0.95,
+    "moveCost": 1,
+    "intake": 0.06,
+    "thirst": 0.0015,
+    "comfortLow": -2,
+    "comfortHigh": 29,
+    "meatAssimilation": 0.7,
+    "endurance": 80
+  },
+  "life": {
+    "maturity": 700,
+    "lifespan": 7000,
+    "gestation": 280,
+    "litter": 4,
+    "cooldown": 500,
+    "breedingSeasons": [0, 1, 2],
+    "mode": "live",
+    "mateRange": 200,
+    "birthMass": 0.06,
+    "offspringReserve": 0.8,
+    "larvaUntil": 0,
+    "weanAge": 220,
+    "growth": 0.03,
+    "motherReserve": 0.3,
+    "territory": 0
+  },
+  "genes": [
+    {
+      "name": "speed",
+      "label": "Tốc độ",
+      "min": 0.6,
+      "max": 1.6,
+      "mean": 1.0,
+      "sd": 0.05
+    },
+    {
+      "name": "vision",
+      "label": "Tầm nhìn",
+      "min": 0.6,
+      "max": 1.6,
+      "mean": 1.0,
+      "sd": 0.05
+    },
+    {
+      "name": "size",
+      "label": "Kích thước",
+      "min": 0.6,
+      "max": 1.7,
+      "mean": 1.0,
+      "sd": 0.05
+    },
+    {
+      "name": "reproThreshold",
+      "label": "Ngưỡng sinh sản",
+      "min": 0.35,
+      "max": 0.95,
+      "mean": 0.6,
+      "sd": 0.04
+    },
+    {
+      "name": "hue",
+      "label": "Sắc độ lông",
+      "min": 0.0,
+      "max": 0.17,
+      "mean": 0.06,
+      "sd": 0.012
+    },
+    {
+      "name": "lightness",
+      "label": "Độ sáng lông",
+      "min": 0.1,
+      "max": 0.9,
+      "mean": 0.3,
+      "sd": 0.04
+    },
+    {
+      "name": "coldTolerance",
+      "label": "Chịu lạnh (lông dày)",
+      "min": 0.0,
+      "max": 1.0,
+      "mean": 0.5,
+      "sd": 0.06
+    },
+    {
+      "name": "litterSize",
+      "label": "Cỡ lứa",
+      "min": 1.5,
+      "max": 8,
+      "mean": 4,
+      "sd": 0.5
+    }
+  ],
+  "behaviors": [
+    {
+      "use": "flee",
+      "params": {
+        "refuge": "forest",
+        "panic": 0.35
+      }
+    },
+    {
+      "use": "nurse"
+    },
+    {
+      "use": "herd",
+      "params": {
+        "spacing": 26
+      }
+    },
+    {
+      "use": "scavenge",
+      "stage": "weaned",
+      "params": {
+        "range": 70
+      }
+    },
+    {
+      "use": "forage",
+      "params": {
+        "sources": [
+          {
+            "field": "fruit",
+            "assimilation": 0.6,
+            "floor": 0,
+            "halfSaturation": 25,
+            "water": 1.2
+          },
+          {
+            "field": "grass",
+            "assimilation": 0.42,
+            "floor": 12,
+            "halfSaturation": 110,
+            "water": 1.0
+          },
+          {
+            "field": "shrub",
+            "assimilation": 0.4,
+            "floor": 30,
+            "halfSaturation": 90,
+            "water": 1.0
+          },
+          {
+            "field": "insects",
+            "assimilation": 0.6,
+            "floor": 0.2,
+            "halfSaturation": 3,
+            "water": 0.3
+          }
+        ]
+      }
+    },
+    {
+      "use": "drink"
+    },
+    {
+      "use": "mate"
+    },
+    {
+      "use": "rest"
+    },
+    {
+      "use": "wander",
+      "params": {
+        "range": 100,
+        "followKin": true
+      }
+    }
+  ],
+  "appearance": {
+    "shape": "boar",
+    "saturation": 0.3
+  }
+}

@@ -22,8 +22,8 @@ export const CELL_SIZE = 10;
 export const GRID = WORLD_SIZE / CELL_SIZE;
 /** Tổng số ô lưới. */
 export const CELLS = GRID * GRID;
-/** Cạnh ô của spatial hash cho động vật (u). Chọn gần bằng tầm nhìn điển hình để truy vấn chạm ít ô. */
-export const HASH_CELL = 40;
+/** Cạnh ô của spatial hash cho động vật (u). Gần bằng tầm nhìn của loài đông nhất (cá, ếch) để truy vấn ít quét thừa. */
+export const HASH_CELL = 25;
 
 // ───────────────────────────── Thời gian ─────────────────────────────
 
@@ -68,15 +68,34 @@ export const RIVER_HALF_WIDTH = 30;
 /** Độ sâu giữa dòng ở đoạn sông thường, và ở các "chỗ cạn" (chỉ lội qua được khi hạn hán). */
 export const RIVER_DEPTH = 0.06;
 export const RIVER_FORD_DEPTH = 0.022;
+/**
+ * Ao nhỏ: được thêm lần lượt vào nơi xa nước nhất cho tới khi không ô đất nào cách nước quá POND_MAX_DISTANCE ô
+ * (hoặc đã đủ POND_MAX_COUNT ao). Ao nông nên cạn khi hạn hán.
+ */
+export const POND_MAX_DISTANCE = 24;
+export const POND_MAX_COUNT = 48;
+/** Bán kính ao (u): [nhỏ nhất, lớn nhất]; độ sâu giữa ao: [nông nhất, sâu nhất]. */
+export const POND_RADIUS = [14, 30] as const;
+export const POND_DEPTH = [0.02, 0.045] as const;
 /** Tỉ lệ diện tích có tán rừng dày (theo hạng noise). */
 export const FOREST_FRACTION = 0.3;
 
 // ───────────────────────────── Khí hậu ─────────────────────────────
 
 /** Nhiệt độ trung bình năm (°C) và biên độ theo mùa, theo ngày/đêm. */
-export const TEMP_MEAN = 12;
-export const TEMP_SEASON_AMPLITUDE = 12;
+export const TEMP_MEAN = 13;
+export const TEMP_SEASON_AMPLITUDE = 10;
 export const TEMP_DAY_AMPLITUDE = 3;
+/** Dưới nhiệt độ trung bình ngày này thì mặt đất phủ tuyết (ảnh hưởng nguỵ trang và hình ảnh). */
+export const SNOW_TEMPERATURE = 4.5;
+/**
+ * Mùa đông ôn hoà: thực vật vẫn quang hợp chậm thay vì ngừng hẳn.
+ * Ánh sáng hữu hiệu = LIGHT_BASE + LIGHT_SEASONAL × (dao động mùa ∈ [−1, 1]) → 0,4 giữa đông … 1,0 giữa hạ.
+ * Vì sao: nếu mùa đông năng suất bằng 0, mọi quần thể (vốn lớn lên theo sự dư dả mùa hạ) gặm thức ăn tới sàn
+ * rồi chết đói hàng loạt mỗi mùa xuân — hệ dao động rất mạnh và các loài ít cá thể tuyệt chủng.
+ */
+export const LIGHT_BASE = 0.7;
+export const LIGHT_SEASONAL = 0.3;
 /** Giảm nhiệt theo độ cao: °C cho mỗi đơn vị độ cao chuẩn hoá phía trên 0,5. */
 export const TEMP_LAPSE = 8;
 /** Xác suất bắt đầu mưa mỗi chu kỳ thời tiết, theo mùa [xuân, hạ, thu, đông]. */
@@ -113,7 +132,7 @@ export const NUTRIENT_LEACHING = 0.0012;
 /** Chuyển hoá cơ bản: E mỗi tick cho mỗi (E cấu trúc)^0,75 (định luật Kleiber). */
 export const BASAL_METABOLISM = 0.0052;
 /** Chi phí di chuyển: E mỗi tick = hệ số × khối lượng × tốc độ². */
-export const MOVE_COST = 0.00042;
+export const MOVE_COST = 0.0006;
 /** Gen tốc độ lớn hơn 1 làm tăng chuyển hoá cơ bản (cơ bắp phải nuôi kể cả khi đứng yên). */
 export const SPEED_UPKEEP = 0.35;
 /** Gen tầm nhìn lớn hơn 1 làm tăng chuyển hoá cơ bản (mô thần kinh/võng mạc đắt). */
@@ -131,8 +150,8 @@ export const REST_METABOLISM = 0.7;
 export const HIBERNATE_METABOLISM = 0.07;
 /** Hiệu suất chuyển dự trữ thành mô cơ thể khi lớn (phần còn lại thành nhiệt). */
 export const GROWTH_EFFICIENCY = 0.75;
-/** Con non chỉ lớn khi dự trữ vượt tỉ lệ này của sức chứa. */
-export const GROWTH_RESERVE_FRACTION = 0.3;
+/** Con non chỉ lớn khi dự trữ vượt tỉ lệ này của sức chứa (giữ đệm mỡ trước, lớn sau — nếu không sẽ chết đói mùa đông đầu đời). */
+export const GROWTH_RESERVE_FRACTION = 0.45;
 /** Tốc độ ăn xác so với ăn cỏ (thịt đậm năng lượng, ăn nhanh hơn). */
 export const CARCASS_INTAKE_MULTIPLIER = 6;
 
@@ -171,6 +190,13 @@ export const STRIKE_COOLDOWN = 12;
 export const STRIKE_HIT_CHANCE = 0.7;
 /** Con mồi ở dưới nước khó bị kẻ săn trên cạn bắt hơn (hệ số nhân xác suất trúng). */
 export const WATER_REFUGE = 0.35;
+/**
+ * Đuối sức: chạy nước rút (trốn/đuổi) quá `endurance` tick của loài thì tốc độ giảm dần, tới mức giảm tối đa này
+ * khi đã chạy gấp đôi sức bền. Nhờ vậy loài dai sức (sói) hạ được con mồi nhanh ngang mình bằng cách đuổi cho kiệt.
+ */
+export const FATIGUE_SLOWDOWN = 0.35;
+/** Kẻ săn từ trên không chỉ bắt được con mồi dưới nước ở chỗ nông hơn mức này; nước sâu là nơi trú ẩn của cá. */
+export const AERIAL_STRIKE_DEPTH = 0.03;
 /** Tốc độ tối đa giảm khi kiệt sức/già/non: hệ số tối thiểu. */
 export const WEAK_SPEED_FACTOR = 0.6;
 
@@ -181,11 +207,11 @@ export const MAX_GENES = 10;
 /** Chu kỳ kiểm tra phân loài (tick). */
 export const SPECIATION_INTERVAL = 600;
 /** Hai quần thể phải không trao đổi gen trong ít nhất ngần này tick mới được coi là cách ly. */
-export const ISOLATION_TICKS = 4800;
+export const ISOLATION_TICKS = 6000;
 /** Khoảng cách gen chuẩn hoá (đơn vị: độ lệch chuẩn gộp, RMS qua các gen) để tách phân loài. */
-export const SPECIATION_DISTANCE = 0.9;
+export const SPECIATION_DISTANCE = 1.2;
 /** Một quần thể con cần ít nhất ngần này cá thể mới được xét tách. */
-export const MIN_DEME_SIZE = 12;
+export const MIN_DEME_SIZE = 30;
 /** Sàn của độ lệch chuẩn khi chuẩn hoá khoảng cách gen (tỉ lệ của biên độ gen) — tránh chia cho ~0. */
 export const DISTANCE_SD_FLOOR = 0.03;
 

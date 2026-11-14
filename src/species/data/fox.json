@@ -1,0 +1,187 @@
+{
+  "kind": "animal",
+  "key": "fox",
+  "name": "Cáo",
+  "nameEn": "Fox",
+  "role": "Ăn thịt",
+  "mechanism": "Săn đơn lẻ (rình rồi bứt tốc), giữ lãnh thổ; ăn thêm quả, côn trùng, xác; gen hoạt động đêm đánh đổi thị lực ngày/đêm",
+  "trophicLevel": 3,
+  "starting": true,
+  "initialCount": 90,
+  "spawnCluster": 1,
+  "habitat": "land",
+  "locomotion": "land",
+  "canSwim": false,
+  "nocturnal": false,
+  "ectotherm": false,
+  "burrows": false,
+  "body": {
+    "mass": 90,
+    "reserveRatio": 1.0,
+    "walkSpeed": 0.8,
+    "runSpeed": 2.9,
+    "vision": 90,
+    "nightVision": 0.45,
+    "reach": 5,
+    "attack": 1.0,
+    "defense": 0.3,
+    "metabolism": 0.6,
+    "moveCost": 1,
+    "intake": 0.05,
+    "thirst": 0.0015,
+    "comfortLow": -4,
+    "comfortHigh": 30,
+    "meatAssimilation": 0.8,
+    "endurance": 60
+  },
+  "life": {
+    "maturity": 700,
+    "lifespan": 6500,
+    "gestation": 220,
+    "litter": 3,
+    "cooldown": 800,
+    "breedingSeasons": [3, 0],
+    "mode": "live",
+    "mateRange": 280,
+    "birthMass": 0.1,
+    "offspringReserve": 0.8,
+    "larvaUntil": 0,
+    "weanAge": 320,
+    "growth": 0.03,
+    "motherReserve": 0.4,
+    "territory": 450
+  },
+  "genes": [
+    {
+      "name": "speed",
+      "label": "Tốc độ",
+      "min": 0.6,
+      "max": 1.6,
+      "mean": 1.0,
+      "sd": 0.05
+    },
+    {
+      "name": "vision",
+      "label": "Tầm nhìn",
+      "min": 0.6,
+      "max": 1.6,
+      "mean": 1.0,
+      "sd": 0.05
+    },
+    {
+      "name": "size",
+      "label": "Kích thước",
+      "min": 0.6,
+      "max": 1.7,
+      "mean": 1.0,
+      "sd": 0.05
+    },
+    {
+      "name": "reproThreshold",
+      "label": "Ngưỡng sinh sản",
+      "min": 0.35,
+      "max": 0.95,
+      "mean": 0.6,
+      "sd": 0.04
+    },
+    {
+      "name": "hue",
+      "label": "Sắc độ lông",
+      "min": 0.0,
+      "max": 0.17,
+      "mean": 0.05,
+      "sd": 0.012
+    },
+    {
+      "name": "lightness",
+      "label": "Độ sáng lông",
+      "min": 0.1,
+      "max": 0.9,
+      "mean": 0.5,
+      "sd": 0.04
+    },
+    {
+      "name": "coldTolerance",
+      "label": "Chịu lạnh (lông dày)",
+      "min": 0.0,
+      "max": 1.0,
+      "mean": 0.5,
+      "sd": 0.06
+    },
+    {
+      "name": "nocturnality",
+      "label": "Hoạt động đêm",
+      "min": 0,
+      "max": 1,
+      "mean": 0.6,
+      "sd": 0.08
+    }
+  ],
+  "behaviors": [
+    {
+      "use": "nurse"
+    },
+    {
+      "use": "hunt",
+      "stage": "weaned",
+      "params": {
+        "prey": ["rabbit", "frog"],
+        "huntBelow": 0.75,
+        "chaseTicks": 70,
+        "restTicks": 50,
+        "pounceRange": 32,
+        "trackRange": 220
+      }
+    },
+    {
+      "use": "scavenge",
+      "stage": "weaned",
+      "params": {
+        "range": 80
+      }
+    },
+    {
+      "use": "forage",
+      "stage": "weaned",
+      "params": {
+        "sources": [
+          {
+            "field": "fruit",
+            "assimilation": 0.5,
+            "floor": 0,
+            "halfSaturation": 30,
+            "water": 1.2
+          },
+          {
+            "field": "insects",
+            "assimilation": 0.6,
+            "floor": 0.3,
+            "halfSaturation": 2,
+            "water": 0.3
+          }
+        ]
+      }
+    },
+    {
+      "use": "drink"
+    },
+    {
+      "use": "mate"
+    },
+    {
+      "use": "rest"
+    },
+    {
+      "use": "wander",
+      "params": {
+        "range": 120,
+        "homeRange": 240,
+        "spacing": 110
+      }
+    }
+  ],
+  "appearance": {
+    "shape": "fox",
+    "saturation": 0.75
+  }
+}

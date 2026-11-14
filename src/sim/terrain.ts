@@ -11,6 +11,10 @@ import {
   GRID,
   HILL_LEVEL,
   MOUNTAIN_LEVEL,
+  POND_DEPTH,
+  POND_MAX_COUNT,
+  POND_MAX_DISTANCE,
+  POND_RADIUS,
   RIVER_DEPTH,
   RIVER_FORD_DEPTH,
   RIVER_HALF_WIDTH,
@@ -191,6 +195,8 @@ export function generateTerrain(rng: Rng): Terrain {
     }
   }
 
+  carvePonds(elevation, rng);
+
   // 3. Rừng và độ màu mỡ.
   const forestRaw = new Float32Array(CELLS);
   const fertility = new Float32Array(CELLS);
@@ -218,6 +224,89 @@ export function generateTerrain(rng: Rng): Terrain {
   }
 
   return finishTerrain(elevation, canopy, fertility, river, riverPath, fords);
+}
+
+/**
+ * Khoét các ao nhỏ vào những vùng xa nước nhất (chọn điểm xa nhất, lệch ngẫu nhiên một chút, lặp lại).
+ * Vì sao cần: hồ sinh từ noise tần số thấp nên có những vùng rộng hàng trăm đơn vị không có giọt nước nào —
+ * thú ở đó chết khát trên đường đi uống. Ao cũng tạo thêm các thuỷ vực cô lập cho cá và ếch.
+ */
+function carvePonds(elevation: Float32Array, rng: Rng): void {
+  const distance = new Int16Array(CELLS);
+  const queue = new Int32Array(CELLS);
+  for (let pond = 0; pond < POND_MAX_COUNT; pond++) {
+    // Khoảng cách (số ô, 4 hướng) từ mỗi ô tới nước gần nhất.
+    distance.fill(-1);
+    let head = 0;
+    let tail = 0;
+    for (let c = 0; c < CELLS; c++) {
+      if (elevation[c] < WATER_LEVEL_BASE) {
+        distance[c] = 0;
+        queue[tail++] = c;
+      }
+    }
+    let farthest = -1;
+    let farthestDistance = 0;
+    while (head < tail) {
+      const c = queue[head++];
+      const cx = c % GRID;
+      const cy = (c / GRID) | 0;
+      const d = distance[c] + 1;
+      if (cx > 0 && distance[c - 1] < 0) {
+        distance[c - 1] = d;
+        queue[tail++] = c - 1;
+      }
+      if (cx < GRID - 1 && distance[c + 1] < 0) {
+        distance[c + 1] = d;
+        queue[tail++] = c + 1;
+      }
+      if (cy > 0 && distance[c - GRID] < 0) {
+        distance[c - GRID] = d;
+        queue[tail++] = c - GRID;
+      }
+      if (cy < GRID - 1 && distance[c + GRID] < 0) {
+        distance[c + GRID] = d;
+        queue[tail++] = c + GRID;
+      }
+      // Ao không đặt trên núi (nước không đọng trên đỉnh đá) — nhưng vẫn tính khoảng cách xuyên qua núi.
+      if (distance[c] > farthestDistance && elevation[c] < MOUNTAIN_LEVEL) {
+        farthestDistance = distance[c];
+        farthest = c;
+      }
+    }
+    // Luôn rút đủ số ngẫu nhiên cho một ao để lượng tiêu thụ RNG không phụ thuộc số ao thực tế.
+    const jitterX = rng.next() - 0.5;
+    const jitterY = rng.next() - 0.5;
+    const radius = POND_RADIUS[0] + (POND_RADIUS[1] - POND_RADIUS[0]) * rng.next();
+    const depth = POND_DEPTH[0] + (POND_DEPTH[1] - POND_DEPTH[0]) * rng.next();
+    if (farthest < 0 || farthestDistance <= POND_MAX_DISTANCE) continue;
+
+    const spread = Math.min(farthestDistance * 0.5, 8) * CELL_SIZE;
+    const px = clamp(((farthest % GRID) + 0.5) * CELL_SIZE + jitterX * spread, 30, WORLD_SIZE - 30);
+    const py = clamp((((farthest / GRID) | 0) + 0.5) * CELL_SIZE + jitterY * spread, 30, WORLD_SIZE - 30);
+    const reach = radius + 25;
+    const cx0 = Math.max(0, Math.floor((px - reach) / CELL_SIZE));
+    const cx1 = Math.min(GRID - 1, Math.floor((px + reach) / CELL_SIZE));
+    const cy0 = Math.max(0, Math.floor((py - reach) / CELL_SIZE));
+    const cy1 = Math.min(GRID - 1, Math.floor((py + reach) / CELL_SIZE));
+    for (let cy = cy0; cy <= cy1; cy++) {
+      for (let cx = cx0; cx <= cx1; cx++) {
+        const dx = (cx + 0.5) * CELL_SIZE - px;
+        const dy = (cy + 0.5) * CELL_SIZE - py;
+        const d = Math.sqrt(dx * dx + dy * dy);
+        const c = cy * GRID + cx;
+        if (d < radius) {
+          const q = d / radius;
+          const bed = WATER_LEVEL_BASE - (depth * (1 - q * q) + 0.003);
+          if (elevation[c] > bed) elevation[c] = bed;
+        } else if (d < reach) {
+          // Bờ ao thoải: hạ dần độ cao quanh ao (và san núi nếu ao nằm sát núi).
+          const bank = WATER_LEVEL_BASE + 0.004 + ((d - radius) / 25) * 0.45;
+          if (elevation[c] > bank) elevation[c] = bank;
+        }
+      }
+    }
+  }
 }
 
 /** Địa hình phẳng toàn đồng cỏ cho chế độ thí nghiệm Lotka–Volterra: không nước, rừng hay núi. */

@@ -1,0 +1,152 @@
+{
+  "kind": "animal",
+  "key": "vulture",
+  "name": "Kền kền",
+  "nameEn": "Vulture",
+  "role": "Ăn xác",
+  "mechanism": "Chỉ ăn xác chết; bay lượn rất rẻ nên tuần tra được vùng rộng để tìm xác",
+  "trophicLevel": 3,
+  "starting": true,
+  "initialCount": 30,
+  "spawnCluster": 1,
+  "habitat": "land",
+  "locomotion": "air",
+  "canSwim": false,
+  "nocturnal": false,
+  "ectotherm": false,
+  "burrows": false,
+  "body": {
+    "mass": 60,
+    "reserveRatio": 1.4,
+    "walkSpeed": 1.2,
+    "runSpeed": 2.8,
+    "vision": 220,
+    "nightVision": 0.2,
+    "reach": 6,
+    "attack": 0,
+    "defense": 0,
+    "metabolism": 0.75,
+    "moveCost": 0.1,
+    "intake": 0.05,
+    "thirst": 0.001,
+    "comfortLow": -6,
+    "comfortHigh": 34,
+    "meatAssimilation": 0.75,
+    "endurance": 200
+  },
+  "life": {
+    "maturity": 1300,
+    "lifespan": 15000,
+    "gestation": 260,
+    "litter": 1.2,
+    "cooldown": 1800,
+    "breedingSeasons": [0],
+    "mode": "live",
+    "mateRange": 700,
+    "birthMass": 0.12,
+    "offspringReserve": 0.8,
+    "larvaUntil": 0,
+    "weanAge": 400,
+    "growth": 0.03,
+    "motherReserve": 0.4,
+    "territory": 300
+  },
+  "genes": [
+    {
+      "name": "speed",
+      "label": "Tốc độ",
+      "min": 0.6,
+      "max": 1.6,
+      "mean": 1.0,
+      "sd": 0.05
+    },
+    {
+      "name": "vision",
+      "label": "Tầm nhìn",
+      "min": 0.6,
+      "max": 1.6,
+      "mean": 1.0,
+      "sd": 0.05
+    },
+    {
+      "name": "size",
+      "label": "Kích thước",
+      "min": 0.6,
+      "max": 1.7,
+      "mean": 1.0,
+      "sd": 0.05
+    },
+    {
+      "name": "reproThreshold",
+      "label": "Ngưỡng sinh sản",
+      "min": 0.35,
+      "max": 0.95,
+      "mean": 0.6,
+      "sd": 0.04
+    },
+    {
+      "name": "hue",
+      "label": "Sắc độ lông",
+      "min": 0.0,
+      "max": 0.17,
+      "mean": 0.02,
+      "sd": 0.012
+    },
+    {
+      "name": "lightness",
+      "label": "Độ sáng lông",
+      "min": 0.1,
+      "max": 0.9,
+      "mean": 0.2,
+      "sd": 0.04
+    },
+    {
+      "name": "coldTolerance",
+      "label": "Chịu lạnh (lông dày)",
+      "min": 0.0,
+      "max": 1.0,
+      "mean": 0.4,
+      "sd": 0.06
+    },
+    {
+      "name": "wingspan",
+      "label": "Sải cánh",
+      "min": 0.7,
+      "max": 1.4,
+      "mean": 1.0,
+      "sd": 0.05
+    }
+  ],
+  "behaviors": [
+    {
+      "use": "nurse"
+    },
+    {
+      "use": "scavenge",
+      "stage": "weaned",
+      "params": {
+        "range": 260
+      }
+    },
+    {
+      "use": "drink"
+    },
+    {
+      "use": "mate"
+    },
+    {
+      "use": "rest"
+    },
+    {
+      "use": "wander",
+      "params": {
+        "range": 300,
+        "homeRange": 650
+      }
+    }
+  ],
+  "appearance": {
+    "shape": "vulture",
+    "saturation": 0.25
+  }
+}

@@ -1,0 +1,189 @@
+{
+  "kind": "animal",
+  "key": "wolf",
+  "name": "Sói",
+  "nameEn": "Wolf",
+  "role": "Ăn thịt",
+  "mechanism": "Săn theo bầy: mục tiêu chung, bọc sườn, chia sát thương để hạ con mồi lớn như hươu",
+  "trophicLevel": 3,
+  "starting": true,
+  "initialCount": 48,
+  "spawnCluster": 6,
+  "habitat": "land",
+  "locomotion": "land",
+  "canSwim": true,
+  "nocturnal": false,
+  "ectotherm": false,
+  "burrows": false,
+  "body": {
+    "mass": 170,
+    "reserveRatio": 1.1,
+    "walkSpeed": 0.85,
+    "runSpeed": 2.8,
+    "vision": 110,
+    "nightVision": 0.8,
+    "reach": 6,
+    "attack": 1.0,
+    "defense": 0.5,
+    "metabolism": 0.55,
+    "moveCost": 0.6,
+    "intake": 0.05,
+    "thirst": 0.0015,
+    "comfortLow": -8,
+    "comfortHigh": 27,
+    "meatAssimilation": 0.8,
+    "endurance": 420
+  },
+  "life": {
+    "maturity": 1000,
+    "lifespan": 9000,
+    "gestation": 400,
+    "litter": 4,
+    "cooldown": 1700,
+    "breedingSeasons": [3],
+    "mode": "live",
+    "mateRange": 500,
+    "birthMass": 0.08,
+    "offspringReserve": 0.6,
+    "larvaUntil": 0,
+    "weanAge": 420,
+    "growth": 0.03,
+    "motherReserve": 0.45,
+    "territory": 650
+  },
+  "genes": [
+    {
+      "name": "speed",
+      "label": "Tốc độ",
+      "min": 0.6,
+      "max": 1.6,
+      "mean": 1.0,
+      "sd": 0.05
+    },
+    {
+      "name": "vision",
+      "label": "Tầm nhìn",
+      "min": 0.6,
+      "max": 1.6,
+      "mean": 1.0,
+      "sd": 0.05
+    },
+    {
+      "name": "size",
+      "label": "Kích thước",
+      "min": 0.6,
+      "max": 1.7,
+      "mean": 1.0,
+      "sd": 0.05
+    },
+    {
+      "name": "reproThreshold",
+      "label": "Ngưỡng sinh sản",
+      "min": 0.35,
+      "max": 0.95,
+      "mean": 0.6,
+      "sd": 0.04
+    },
+    {
+      "name": "hue",
+      "label": "Sắc độ lông",
+      "min": 0.0,
+      "max": 0.17,
+      "mean": 0.08,
+      "sd": 0.012
+    },
+    {
+      "name": "lightness",
+      "label": "Độ sáng lông",
+      "min": 0.1,
+      "max": 0.9,
+      "mean": 0.45,
+      "sd": 0.04
+    },
+    {
+      "name": "coldTolerance",
+      "label": "Chịu lạnh (lông dày)",
+      "min": 0.0,
+      "max": 1.0,
+      "mean": 0.6,
+      "sd": 0.06
+    },
+    {
+      "name": "packAffinity",
+      "label": "Gắn bó với bầy",
+      "min": 0,
+      "max": 1,
+      "mean": 0.7,
+      "sd": 0.08
+    }
+  ],
+  "behaviors": [
+    {
+      "use": "nurse"
+    },
+    {
+      "use": "packHunt",
+      "stage": "weaned",
+      "params": {
+        "prey": ["deer"],
+        "strength": 0.6,
+        "joinRange": 260,
+        "chaseTicks": 320,
+        "restTicks": 90,
+        "huntBelow": 0.8,
+        "pounceRange": 48,
+        "stalkTicks": 400,
+        "trackRange": 320
+      }
+    },
+    {
+      "use": "hunt",
+      "stage": "weaned",
+      "params": {
+        "prey": ["rabbit", "deer"],
+        "huntBelow": 0.6,
+        "chaseTicks": 110,
+        "restTicks": 60,
+        "pounceRange": 36,
+        "trackRange": 200
+      }
+    },
+    {
+      "use": "scavenge",
+      "stage": "weaned",
+      "params": {
+        "range": 120
+      }
+    },
+    {
+      "use": "pack",
+      "params": {
+        "gene": "packAffinity",
+        "range": 70,
+        "maxSize": 8
+      }
+    },
+    {
+      "use": "drink"
+    },
+    {
+      "use": "mate"
+    },
+    {
+      "use": "rest"
+    },
+    {
+      "use": "wander",
+      "params": {
+        "range": 140,
+        "homeRange": 300,
+        "spacing": 180,
+        "followKin": true
+      }
+    }
+  ],
+  "appearance": {
+    "shape": "wolf",
+    "saturation": 0.12
+  }
+}

@@ -1,0 +1,215 @@
+{
+  "kind": "animal",
+  "key": "bear",
+  "name": "Gấu",
+  "nameEn": "Bear",
+  "role": "Ăn tạp",
+  "mechanism": "Đổi nguồn thức ăn theo mùa (quả, cỏ, cá, xác); ngủ đông bằng mỡ dự trữ",
+  "trophicLevel": 2.5,
+  "starting": true,
+  "initialCount": 40,
+  "spawnCluster": 1,
+  "habitat": "forest",
+  "locomotion": "land",
+  "canSwim": true,
+  "nocturnal": false,
+  "ectotherm": false,
+  "burrows": false,
+  "body": {
+    "mass": 700,
+    "reserveRatio": 1.3,
+    "walkSpeed": 0.7,
+    "runSpeed": 2.2,
+    "vision": 80,
+    "nightVision": 0.6,
+    "reach": 7,
+    "attack": 1.0,
+    "defense": 1.5,
+    "metabolism": 0.5,
+    "moveCost": 1,
+    "intake": 0.06,
+    "thirst": 0.0012,
+    "comfortLow": -6,
+    "comfortHigh": 27,
+    "meatAssimilation": 0.75,
+    "endurance": 70
+  },
+  "life": {
+    "maturity": 2200,
+    "lifespan": 16000,
+    "gestation": 900,
+    "litter": 2,
+    "cooldown": 1400,
+    "breedingSeasons": [1, 2],
+    "mode": "live",
+    "mateRange": 450,
+    "birthMass": 0.05,
+    "offspringReserve": 0.8,
+    "larvaUntil": 0,
+    "weanAge": 800,
+    "growth": 0.025,
+    "motherReserve": 0.5,
+    "territory": 400
+  },
+  "genes": [
+    {
+      "name": "speed",
+      "label": "Tốc độ",
+      "min": 0.6,
+      "max": 1.6,
+      "mean": 1.0,
+      "sd": 0.05
+    },
+    {
+      "name": "vision",
+      "label": "Tầm nhìn",
+      "min": 0.6,
+      "max": 1.6,
+      "mean": 1.0,
+      "sd": 0.05
+    },
+    {
+      "name": "size",
+      "label": "Kích thước",
+      "min": 0.6,
+      "max": 1.7,
+      "mean": 1.0,
+      "sd": 0.05
+    },
+    {
+      "name": "reproThreshold",
+      "label": "Ngưỡng sinh sản",
+      "min": 0.35,
+      "max": 0.95,
+      "mean": 0.6,
+      "sd": 0.04
+    },
+    {
+      "name": "hue",
+      "label": "Sắc độ lông",
+      "min": 0.0,
+      "max": 0.17,
+      "mean": 0.06,
+      "sd": 0.012
+    },
+    {
+      "name": "lightness",
+      "label": "Độ sáng lông",
+      "min": 0.1,
+      "max": 0.9,
+      "mean": 0.25,
+      "sd": 0.04
+    },
+    {
+      "name": "coldTolerance",
+      "label": "Chịu lạnh (lông dày)",
+      "min": 0.0,
+      "max": 1.0,
+      "mean": 0.6,
+      "sd": 0.06
+    },
+    {
+      "name": "fatStorage",
+      "label": "Tích mỡ",
+      "min": 0.7,
+      "max": 1.6,
+      "mean": 1.0,
+      "sd": 0.06
+    },
+    {
+      "name": "carnivory",
+      "label": "Thiên về ăn thịt",
+      "min": 0,
+      "max": 1,
+      "mean": 0.4,
+      "sd": 0.08
+    }
+  ],
+  "behaviors": [
+    {
+      "use": "hibernate",
+      "params": {
+        "below": 6,
+        "wake": 8
+      }
+    },
+    {
+      "use": "nurse"
+    },
+    {
+      "use": "scavenge",
+      "stage": "weaned",
+      "params": {
+        "range": 120
+      }
+    },
+    {
+      "use": "hunt",
+      "stage": "weaned",
+      "params": {
+        "prey": ["fish"],
+        "huntBelow": 0.8,
+        "chaseTicks": 40,
+        "restTicks": 30,
+        "pounceRange": 18,
+        "trackRange": 120
+      }
+    },
+    {
+      "use": "forage",
+      "params": {
+        "sources": [
+          {
+            "field": "fruit",
+            "assimilation": 0.7,
+            "floor": 0,
+            "halfSaturation": 25,
+            "water": 1.2
+          },
+          {
+            "field": "grass",
+            "assimilation": 0.38,
+            "floor": 25,
+            "halfSaturation": 110,
+            "water": 1.0
+          },
+          {
+            "field": "shrub",
+            "assimilation": 0.35,
+            "floor": 50,
+            "halfSaturation": 100,
+            "water": 1.0
+          },
+          {
+            "field": "insects",
+            "assimilation": 0.5,
+            "floor": 0.1,
+            "halfSaturation": 4,
+            "water": 0.3
+          }
+        ]
+      }
+    },
+    {
+      "use": "drink"
+    },
+    {
+      "use": "mate"
+    },
+    {
+      "use": "rest"
+    },
+    {
+      "use": "wander",
+      "params": {
+        "range": 140,
+        "homeRange": 350,
+        "spacing": 150
+      }
+    }
+  ],
+  "appearance": {
+    "shape": "bear",
+    "saturation": 0.4
+  }
+}

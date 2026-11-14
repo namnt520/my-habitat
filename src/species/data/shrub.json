@@ -1,0 +1,25 @@
+{
+  "kind": "field",
+  "key": "shrub",
+  "name": "Cây bụi có quả",
+  "nameEn": "Berry shrub",
+  "role": "Sinh vật sản xuất",
+  "mechanism": "Ra quả theo mùa (cuối hạ–thu); chỉ chiếm được ô mới nhờ hạt do động vật ăn quả thải ra",
+  "trophicLevel": 1,
+  "color": "#8e24aa",
+  "params": {
+    "growthRate": 0.004,
+    "capacity": 260,
+    "meadowFraction": 0.2,
+    "deepForestFraction": 0.6,
+    "germination": 0.5,
+    "seedDecay": 0.0006,
+    "localSeeding": 0.15,
+    "fruitRate": 0.0035,
+    "fruitCapacity": 0.35,
+    "fruitRot": 0.004,
+    "fruitStart": 0.28,
+    "fruitEnd": 0.72,
+    "senescence": 0.00015
+  }
+}
