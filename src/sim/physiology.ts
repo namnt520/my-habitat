@@ -181,24 +181,46 @@ export function physiology(ctx: ThinkContext): boolean {
     a.health[i] = Math.min(1, a.health[i] + HEALTH_REGEN * dt);
   }
 
-  // ── Bú mẹ: năng lượng chuyển trong nội bộ loài nên không cần ghi sổ cái ──
+  // ── Bú mẹ / được nuôi: năng lượng chuyển trong nội bộ loài nên không cần ghi sổ cái ──
   if (sp.weanAge > 0 && a.age[i] < sp.weanAge && energyFrac < 0.85) {
+    let provider = -1;
+    let spare = 0;
     const mother = a.motherSlot[i];
     if (mother >= 0 && a.alive[mother] === 1 && a.id[mother] === a.motherId[i]) {
       const dx = a.x[mother] - ctx.x;
       const dy = a.y[mother] - ctx.y;
       if (dx * dx + dy * dy < NURSING_RANGE * NURSING_RANGE) {
-        const spare = a.energy[mother] - NURSING_MOTHER_FLOOR * capacityOf(sim, mother);
-        let milk = NURSING_RATE * ctx.m34 * dt;
-        if (milk > spare) milk = spare;
-        if (milk > capacity - a.energy[i]) milk = capacity - a.energy[i];
-        if (milk > 0) {
-          a.energy[mother] -= milk;
-          a.energy[i] += milk;
-        }
+        provider = mother;
+        spare = a.energy[mother] - NURSING_MOTHER_FLOOR * capacityOf(sim, mother);
       }
     } else {
       a.motherSlot[i] = -1;
+    }
+    // Loài sống theo bầy nuôi con chung: mẹ vắng mặt hoặc đã cạn sức thì con trưởng thành khác trong bầy mớm mồi.
+    if (spare <= 0 && sp.usesGroups && a.group[i] >= 0) {
+      const members = sim.members;
+      const group = a.group[i];
+      for (let k = members.start[sp.index]; k < members.start[sp.index + 1]; k++) {
+        const j = members.items[k];
+        if (a.alive[j] === 0 || a.group[j] !== group || a.age[j] < sp.maturity) continue;
+        const dx = a.x[j] - ctx.x;
+        const dy = a.y[j] - ctx.y;
+        if (dx * dx + dy * dy > NURSING_RANGE * NURSING_RANGE) continue;
+        const available = a.energy[j] - NURSING_MOTHER_FLOOR * capacityOf(sim, j);
+        if (available > spare) {
+          spare = available;
+          provider = j;
+        }
+      }
+    }
+    if (provider >= 0 && spare > 0) {
+      let milk = NURSING_RATE * ctx.m34 * dt;
+      if (milk > spare) milk = spare;
+      if (milk > capacity - a.energy[i]) milk = capacity - a.energy[i];
+      if (milk > 0) {
+        a.energy[provider] -= milk;
+        a.energy[i] += milk;
+      }
     }
   }
 

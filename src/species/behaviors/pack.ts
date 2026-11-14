@@ -26,6 +26,7 @@ export const pack: BehaviorModule<PackParams> = {
     if (typeof geneName === 'string' && gene < 0)
       throw new Error(`pack: loài ${species.key} không có gen "${geneName}"`);
     species.packMax = num(raw, 'maxSize', 8);
+    species.packBreeders = num(raw, 'breeders', 1);
     species.gSocial = gene;
     return { gene, range: num(raw, 'range', 90) };
   },
@@ -34,6 +35,8 @@ export const pack: BehaviorModule<PackParams> = {
     const group = sim.animals.group[i];
     if (group < 0 || sim.groups.size[group] < 2) return 0;
     if (ctx.energyFrac < 0.85 && !isFeeding(ctx) && sim.groups.sharedKill(sim, group) >= 0) return 0.9;
+    // Con đói được phép rời bầy đi lùng mồi; hạ được mồi thì cả bầy sẽ kéo tới (xem trên).
+    if (ctx.energyFrac < 0.45) return 0;
     const dx = sim.groups.centerX[group] - ctx.x;
     const dy = sim.groups.centerY[group] - ctx.y;
     if (dx * dx + dy * dy < p.range * p.range) return 0;

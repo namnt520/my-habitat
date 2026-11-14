@@ -54,7 +54,7 @@ function findDistantMate(ctx: ThinkContext): number {
 
 /**
  * Con cái có "giữ được lãnh thổ sinh sản" không.
- *  - Loài sống theo bầy: trong bầy chỉ con cái trưởng thành lớn tuổi nhất (con đầu đàn) sinh sản.
+ *  - Loài sống theo bầy: trong bầy chỉ vài con cái trưởng thành lớn tuổi nhất (tham số `breeders`) sinh sản.
  *  - Loài có lãnh thổ: không được có con cái trưởng thành lớn tuổi hơn đặt "nhà" trong bán kính lãnh thổ.
  * Đây là cơ chế tự điều hoà mật độ có thật ở thú ăn thịt: quần thể càng dày, càng nhiều con cái không được đẻ,
  * nên kẻ săn không tăng vượt quá mức con mồi nuôi nổi. (Không có con số trần nào được đặt sẵn.)
@@ -66,12 +66,17 @@ function holdsTerritory(ctx: ThinkContext): boolean {
   const group = a.group[i];
   const age = a.age[i];
   const range2 = sp.territory * sp.territory;
+  let seniorsInGroup = 0;
   for (let k = members.start[sp.index]; k < members.start[sp.index + 1]; k++) {
     const j = members.items[k];
     if (j === i || a.alive[j] === 0 || a.sex[j] !== 0) continue;
     if (a.age[j] < age || (a.age[j] === age && a.id[j] > a.id[i])) continue; // trẻ hơn mình: mình có quyền ưu tiên
     if (!isAdult(sim, j)) continue;
-    if (group >= 0 && a.group[j] === group) return false; // bầy đã có con cái lớn tuổi hơn
+    if (group >= 0 && a.group[j] === group) {
+      // Trong bầy chỉ vài con cái lớn tuổi nhất được sinh sản.
+      if (++seniorsInGroup >= sp.packBreeders) return false;
+      continue;
+    }
     const dx = a.homeX[j] - a.homeX[i];
     const dy = a.homeY[j] - a.homeY[i];
     if (dx * dx + dy * dy < range2) return false;

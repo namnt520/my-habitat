@@ -61,6 +61,9 @@ export interface SimulationOptions {
   data?: readonly SpeciesDef[];
 }
 
+/** Cá thể của quần thể khởi tạo bắt đầu với dự trữ đầy tới mức này. */
+const INITIAL_RESERVE = 0.85;
+
 /** Tham số bị ép trong kịch bản Lotka–Volterra: tắt mùa, ngày/đêm, thời tiết, khát, biến dị, phân loài. */
 const LOTKA_VOLTERRA_PARAMS: Partial<SimParams> = {
   seasons: false,
@@ -339,7 +342,7 @@ export class Simulation {
     const adultMass = species.mass * a.phenotype[slot * MAX_GENES + GENE_SIZE];
     const grown = clamp01(species.birthMass + (1 - species.birthMass) * (age / species.maturity));
     a.structure[slot] = adultMass * grown;
-    a.energy[slot] = 0.7 * capacityOf(this, slot);
+    a.energy[slot] = INITIAL_RESERVE * capacityOf(this, slot);
     a.reproCooldown[slot] = rng.next() * species.cooldown * 0.5;
     this.ledger.flow(POOL_EXTERNAL, species.pool, a.energy[slot] + a.structure[slot]);
 

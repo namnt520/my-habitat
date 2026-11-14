@@ -46,10 +46,10 @@
     "birthMass": 0.08,
     "offspringReserve": 0.6,
     "larvaUntil": 0,
-    "weanAge": 420,
+    "weanAge": 720,
     "growth": 0.03,
     "motherReserve": 0.45,
-    "territory": 650
+    "territory": 400
   },
   "genes": [
     {
@@ -160,7 +160,8 @@
       "params": {
         "gene": "packAffinity",
         "range": 70,
-        "maxSize": 8
+        "maxSize": 8,
+        "breeders": 2
       }
     },
     {

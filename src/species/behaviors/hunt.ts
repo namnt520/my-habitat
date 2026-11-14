@@ -1,4 +1,4 @@
-import { WADE_DEPTH } from '../../sim/constants';
+import { SCENT_CANOPY, SCENT_RANGE_IN_FOREST, WADE_DEPTH } from '../../sim/constants';
 import { halt, setState } from '../../sim/actions';
 import type { ThinkContext } from '../../sim/context';
 import { State } from '../../sim/entities';
@@ -80,6 +80,9 @@ export function trackPrey(ctx: ThinkContext, range: number, large: boolean): num
     if (d2 >= best2) continue;
     if (ctx.mass / a.structure[j] >= sp.soloMassRatio === large) continue;
     const cell = cellAt(a.x[j], a.y[j]);
+    // Rừng rậm làm loãng mùi: con mồi dưới tán dày chỉ bị đánh hơi khi ở gần — rừng là nơi trú ẩn.
+    if (world.terrain.canopy[cell] > SCENT_CANOPY && d2 > SCENT_RANGE_IN_FOREST * SCENT_RANGE_IN_FOREST)
+      continue;
     const depth = world.depthAt(cell);
     if (depth > WADE_DEPTH * 2.5 && sp.locomotion !== LOCO_WATER) continue;
     if (landBound && depth <= 0 && world.terrain.landRegion[cell] !== region) continue;

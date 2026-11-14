@@ -11,7 +11,7 @@
   "spawnCluster": 1,
   "habitat": "land",
   "locomotion": "land",
-  "canSwim": false,
+  "canSwim": true,
   "nocturnal": false,
   "ectotherm": false,
   "burrows": false,
@@ -36,20 +36,20 @@
   },
   "life": {
     "maturity": 700,
-    "lifespan": 6500,
+    "lifespan": 5000,
     "gestation": 220,
-    "litter": 3,
-    "cooldown": 800,
+    "litter": 2,
+    "cooldown": 1600,
     "breedingSeasons": [3, 0],
     "mode": "live",
     "mateRange": 280,
     "birthMass": 0.1,
     "offspringReserve": 0.8,
     "larvaUntil": 0,
-    "weanAge": 320,
+    "weanAge": 520,
     "growth": 0.03,
     "motherReserve": 0.4,
-    "territory": 450
+    "territory": 550
   },
   "genes": [
     {

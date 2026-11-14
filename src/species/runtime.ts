@@ -125,6 +125,8 @@ export interface SpeciesRuntime {
   /** Kích thước bầy tối đa trước khi con trưởng thành tách đi, và vị trí gen gắn bó với bầy (−1 nếu không có). */
   packMax: number;
   gSocial: number;
+  /** Số con cái được sinh sản trong mỗi bầy (các con lớn tuổi nhất). */
+  packBreeders: number;
   /** Khoảng cách hoảng sợ theo tỉ lệ tầm nhìn: kẻ săn tới gần hơn mức này thì bỏ chạy dù nó không săn. */
   panicFraction: number;
 }

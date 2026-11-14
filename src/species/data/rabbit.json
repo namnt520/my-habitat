@@ -135,7 +135,7 @@
           {
             "field": "grass",
             "assimilation": 0.5,
-            "floor": 10,
+            "floor": 6,
             "halfSaturation": 90,
             "water": 1.0
           },

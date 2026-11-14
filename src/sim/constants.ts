@@ -173,8 +173,11 @@ export const CORPSE_DECAY = 0.0022;
 // ───────────────────────────── Động vật: giác quan, chiến đấu ─────────────────────────────
 
 /** Tán rừng dày giảm tầm phát hiện của kẻ nhìn từ mặt đất / từ trên không tới ngần này. */
-export const CANOPY_COVER_GROUND = 0.5;
+export const CANOPY_COVER_GROUND = 0.7;
 export const CANOPY_COVER_AIR = 0.9;
+/** Dưới tán rừng dày hơn mức này, kẻ săn chỉ đánh hơi được con mồi trong SCENT_RANGE_IN_FOREST (u). */
+export const SCENT_CANOPY = 0.5;
+export const SCENT_RANGE_IN_FOREST = 40;
 /** Nguỵ trang hoàn hảo (màu lông trùng màu nền) giảm tầm bị phát hiện tới ngần này. */
 export const CAMOUFLAGE_STRENGTH = 0.4;
 /** Con mồi đứng im/ngủ khó bị phát hiện hơn; con ngủ đông gần như vô hình (trong hang, dưới bùn). */

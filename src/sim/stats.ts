@@ -86,9 +86,7 @@ export class Pedigree {
   }
 
   /** Bản ghi của một cá thể, hoặc null nếu đã bị ghi đè/không tồn tại. */
-  get(
-    id: number,
-  ): {
+  get(id: number): {
     id: number;
     mother: number;
     father: number;

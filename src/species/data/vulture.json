@@ -46,7 +46,7 @@
     "birthMass": 0.12,
     "offspringReserve": 0.8,
     "larvaUntil": 0,
-    "weanAge": 400,
+    "weanAge": 700,
     "growth": 0.03,
     "motherReserve": 0.4,
     "territory": 300

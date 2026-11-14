@@ -13,6 +13,8 @@ export const rest: BehaviorModule<null> = {
     return null;
   },
   score(ctx) {
+    // Đói cồn cào thì không ngủ: nếu quanh đây không có gì ăn, module lang thang sẽ đưa con vật đi tìm.
+    if (ctx.energyFrac < 0.35) return 0;
     const daylight = ctx.sim.world.climate.daylight;
     if (!ctx.nightActive && daylight < 0.12) return 0.5;
     if (ctx.nightActive && daylight > 0.8) return 0.42;

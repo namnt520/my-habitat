@@ -36,9 +36,9 @@
   },
   "life": {
     "maturity": 1100,
-    "lifespan": 12000,
+    "lifespan": 9600,
     "gestation": 240,
-    "litter": 1.3,
+    "litter": 1,
     "cooldown": 1600,
     "breedingSeasons": [0],
     "mode": "live",
@@ -46,10 +46,10 @@
     "birthMass": 0.12,
     "offspringReserve": 0.8,
     "larvaUntil": 0,
-    "weanAge": 400,
+    "weanAge": 700,
     "growth": 0.03,
     "motherReserve": 0.4,
-    "territory": 550
+    "territory": 650
   },
   "genes": [
     {

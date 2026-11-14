@@ -185,6 +185,7 @@ export function createRegistry(defs: readonly SpeciesDef[]): SpeciesRegistry {
       huntBelow: 0,
       corpseRange: 0,
       packMax: 8,
+      packBreeders: 1,
       gSocial: -1,
       panicFraction: 0.45,
     };
