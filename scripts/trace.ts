@@ -16,7 +16,11 @@ export async function main(argv: string[]): Promise<number> {
   const every = Number(args.get('every') ?? 60);
   const follow = Number(args.get('follow') ?? 3);
   const start = Number(args.get('start') ?? 0);
-  const sim = new Simulation({ seed: Number(args.get('seed') ?? 1), species: args.get('only')?.split(',') });
+  const sim = new Simulation({
+    seed: Number(args.get('seed') ?? 1),
+    species: args.get('only')?.split(','),
+    scenario: args.get('scenario') === 'lotka-volterra' ? 'lotka-volterra' : 'default',
+  });
   const species = sim.registry.animalByKey.get(key);
   if (!species) throw new Error(`Không có loài ${key}`);
   const a = sim.animals;

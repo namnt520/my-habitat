@@ -1,0 +1,56 @@
+{
+  "seed": 7,
+  "ticks": 48100,
+  "msPerTick": 2.0384616172765075,
+  "fit": {
+    "alpha": 0.00029011358625114354,
+    "beta": 0.0000030286291485112085,
+    "delta": 6.255323194900251e-8,
+    "gamma": 0.0005386523734382926,
+    "r2Prey": 0.5536685430190978,
+    "r2Predator": 0.3361277868379769,
+    "preyEquilibrium": 8611.103801597928,
+    "predatorEquilibrium": 95.7903962569189,
+    "period": 15894.30511306451
+  },
+  "observed": {
+    "periodTicks": 12500,
+    "predatorLagTicks": 4866.666666666667,
+    "lagFractionOfPeriod": 0.38933333333333336,
+    "preyMean": 7394.343035343035,
+    "predatorMean": 86.46569646569647,
+    "preyRange": [
+      1992,
+      13784
+    ],
+    "predatorRange": [
+      4,
+      210
+    ],
+    "preyPeakTicks": [
+      8100,
+      19700,
+      33100
+    ],
+    "predatorPeakTicks": [
+      10900,
+      24600,
+      40000
+    ]
+  },
+  "lotkaVolterra": {
+    "periodTicks": 15894.30511306451,
+    "preyEquilibrium": 8611.103801597928,
+    "predatorEquilibrium": 95.7903962569189,
+    "lagFractionOfPeriod": 0.25,
+    "preyRange": [
+      1998.6860732080995,
+      23056.215623689524
+    ],
+    "predatorRange": [
+      10.914545735784788,
+      340.3169952757304
+    ]
+  },
+  "energyAudit": 8.79977096824851e-11
+}

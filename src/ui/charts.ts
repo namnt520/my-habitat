@@ -148,7 +148,12 @@ export function drawLineChart(
   }
   ctx.setLineDash([]);
 
-  if (options.hoverX !== null && options.hoverX !== undefined && options.hoverX >= pad.left && options.hoverX <= width - pad.right) {
+  if (
+    options.hoverX !== null &&
+    options.hoverX !== undefined &&
+    options.hoverX >= pad.left &&
+    options.hoverX <= width - pad.right
+  ) {
     const target = x0 + ((options.hoverX - pad.left) / plotW) * (x1 - x0);
     // Tìm nhị phân mẫu gần con trỏ nhất.
     let low = 0;

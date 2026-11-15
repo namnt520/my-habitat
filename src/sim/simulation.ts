@@ -34,6 +34,7 @@ import { GroupTable } from './groups';
 import { Ledger, POOL_CORPSE, POOL_DETRITUS, POOL_EXTERNAL, type PoolAudit } from './ledger';
 import { DEFAULT_PARAMS, type SimParams } from './params';
 import { Rng } from './rng';
+import { LOTKA_VOLTERRA_COUNTS, lotkaVolterraData } from './scenario';
 import { type RenderSnapshot, takeSnapshot } from './snapshot';
 import { SpatialHash } from './spatial';
 import { LineageTree } from './speciation';
@@ -159,7 +160,8 @@ export class Simulation {
       ...(this.scenario === 'lotka-volterra' ? LOTKA_VOLTERRA_PARAMS : {}),
     };
     this.rng = new Rng(this.seed);
-    this.registry = createRegistry(options.data ?? SPECIES_DATA);
+    const data = options.data ?? SPECIES_DATA;
+    this.registry = createRegistry(this.scenario === 'lotka-volterra' ? lotkaVolterraData(data) : data);
     const terrain: Terrain =
       this.scenario === 'lotka-volterra' ? generateFlatTerrain() : generateTerrain(this.rng);
     this.world = new World(terrain);
@@ -247,13 +249,15 @@ export class Simulation {
   // ───────────────────────────── Khởi tạo quần thể ─────────────────────────────
 
   private populate(options: SimulationOptions): void {
-    const defaults = this.scenario === 'lotka-volterra' ? ['rabbit', 'fox'] : null;
+    const scenarioCounts = this.scenario === 'lotka-volterra' ? LOTKA_VOLTERRA_COUNTS : null;
+    const defaults = scenarioCounts ? Object.keys(scenarioCounts) : null;
     const wanted = options.species ?? defaults;
     const habitats = this.habitatCells();
     for (const species of this.registry.animals) {
       const included = wanted ? wanted.includes(species.key) : species.def.starting;
       if (!included) continue;
-      const total = options.counts?.[species.key] ?? species.def.initialCount;
+      const total =
+        options.counts?.[species.key] ?? scenarioCounts?.[species.key] ?? species.def.initialCount;
       const cells = habitats[species.def.habitat];
       if (cells.length === 0) continue;
       const cluster = Math.max(1, species.def.spawnCluster);
