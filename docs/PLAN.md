@@ -71,3 +71,9 @@ Dependency: `vite`, `typescript`, `vitest`, `three` (+ `@types/three`), `eslint`
 - Cây rừng là cấu trúc địa hình tĩnh (che tầm nhìn), không tham gia dòng năng lượng.
 - Không tìm đường (pathfinding) toàn cục: động vật lái tham lam + trường hướng tới nước.
 - Chăm sóc con non (bú sữa) không được mô phỏng; con non nhận vốn năng lượng lúc sinh.
+
+## 6. Ghi chú sau khi thực hiện
+
+Kế hoạch trên là bản viết trước khi code và được giữ nguyên. Những chỗ thực tế đã khác (lý do ở `REPORT.md` mục 1):
+chăm sóc con non **có** được mô phỏng; địa hình có thêm ao; có thêm hệ lãnh thổ sinh sản; script CLI được đóng gói
+bằng Vite thay vì chạy qua Module Runner; spatial hash dùng ô 25 u.

@@ -1,0 +1,10 @@
+rabbit  speed 1.00→1.01  vision 1.00→0.94  size 1.00→0.93  reproT 0.70→0.69  hue 0.09→0.09  lightn 0.50→0.50  coldTo 0.45→0.42  litter 4.01→4.04
+deer    speed 1.00→1.02  vision 1.00→1.00  size 1.00→0.98  reproT 0.60→0.60  hue 0.07→0.07  lightn 0.45→0.45  coldTo 0.50→0.50  herdin 0.60→0.60
+fox     speed 1.01→1.03  vision 1.00→1.05  size 0.99→0.96  reproT 0.60→0.61  hue 0.05→0.06  lightn 0.50→0.52  coldTo 0.50→0.46  noctur 0.60→0.60
+wolf    speed 1.00→0.00  vision 1.00→0.00  size 0.99→0.00  reproT 0.60→0.00  hue 0.08→0.00  lightn 0.45→0.00  coldTo 0.59→0.00  packAf 0.70→0.00
+eagle   speed 1.00→1.04  vision 1.01→1.00  size 0.99→1.01  reproT 0.60→0.62  hue 0.07→0.06  lightn 0.30→0.30  coldTo 0.50→0.45  wingsp 1.01→1.01
+bear    speed 1.00→1.03  vision 1.00→1.05  size 1.01→1.03  reproT 0.60→0.61  hue 0.06→0.06  lightn 0.24→0.25  coldTo 0.61→0.62  fatSto 1.01→1.02  carniv 0.39→0.44
+frog    speed 1.00→0.00  vision 1.00→0.00  size 1.00→0.00  reproT 0.50→0.00  hue 0.30→0.00  lightn 0.45→0.00  coldTo 0.40→0.00  aquati 0.50→0.00  litter 6.98→0.00
+fish    speed 1.00→1.03  vision 1.00→0.98  size 1.00→0.92  reproT 0.50→0.47  hue 0.55→0.55  lightn 0.50→0.50  coldTo 0.40→0.39  school 0.60→0.60  litter 6.01→6.01
+vulture speed 0.99→1.01  vision 1.00→0.99  size 1.01→0.99  reproT 0.61→0.61  hue 0.02→0.03  lightn 0.19→0.20  coldTo 0.41→0.40  wingsp 1.00→1.02
+[{"id":10,"name":"Ếch α","parent":6,"bornTick":13200,"extinctTick":23400,"founders":33,"distance":1.317,"population":0},{"id":11,"name":"Cá α","parent":7,"bornTick":46800,"extinctTick":-1,"founders":34,"distance":1.203,"population":22}]

@@ -1,0 +1,102 @@
+{
+  "machine": "Apple M1 Pro · 8 nhân · 16 GB RAM · Node v22.23.0",
+  "seed": 42,
+  "ticks": 3000,
+  "breakdown": {
+    "environment": 0.0019455946666659353,
+    "indexes": 0.14816154433332462,
+    "fields": 0.23643386466667068,
+    "animals": 1.5286233263333404,
+    "other": 0.007233877999996148,
+    "total": 1.9223982079999975
+  },
+  "windows": [
+    {
+      "tick": 250,
+      "animals": 4637,
+      "msPerTick": 1.789865832
+    },
+    {
+      "tick": 500,
+      "animals": 6991,
+      "msPerTick": 1.5385841680000003
+    },
+    {
+      "tick": 750,
+      "animals": 7564,
+      "msPerTick": 2.1277496679999994
+    },
+    {
+      "tick": 1000,
+      "animals": 7881,
+      "msPerTick": 1.920959664
+    },
+    {
+      "tick": 1250,
+      "animals": 8636,
+      "msPerTick": 2.0088183360000005
+    },
+    {
+      "tick": 1500,
+      "animals": 8322,
+      "msPerTick": 1.8450121639999997
+    },
+    {
+      "tick": 1750,
+      "animals": 7911,
+      "msPerTick": 1.7557951680000006
+    },
+    {
+      "tick": 2000,
+      "animals": 7617,
+      "msPerTick": 1.6658401680000006
+    },
+    {
+      "tick": 2250,
+      "animals": 7412,
+      "msPerTick": 1.473937664000001
+    },
+    {
+      "tick": 2500,
+      "animals": 8587,
+      "msPerTick": 1.6678199999999996
+    },
+    {
+      "tick": 2750,
+      "animals": 10003,
+      "msPerTick": 2.6240554999999985
+    },
+    {
+      "tick": 3000,
+      "animals": 9521,
+      "msPerTick": 2.6558574999999984
+    }
+  ],
+  "scaling": [
+    {
+      "factor": 0.5,
+      "animals": 2163,
+      "msPerTick": 0.5744119433333345
+    },
+    {
+      "factor": 1,
+      "animals": 4448,
+      "msPerTick": 1.044233889999999
+    },
+    {
+      "factor": 2,
+      "animals": 9142,
+      "msPerTick": 2.374575553333334
+    },
+    {
+      "factor": 4,
+      "animals": 18192,
+      "msPerTick": 6.127826250000001
+    },
+    {
+      "factor": 8,
+      "animals": 35004,
+      "msPerTick": 18.27631347333333
+    }
+  ]
+}
