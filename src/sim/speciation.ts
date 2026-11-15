@@ -37,6 +37,8 @@ export interface LineageNode {
   distance: number;
   /** Số cá thể ở lần kiểm tra gần nhất. */
   population: number;
+  /** Dòng này đã từng có cá thể sống (ở một lần kiểm tra nào đó). */
+  seen: boolean;
 }
 
 interface Deme {
@@ -67,6 +69,7 @@ export class LineageTree {
         region: -1,
         distance: 0,
         population: 0,
+        seen: false,
       });
       this.branchCount.push(0);
     });
@@ -117,7 +120,9 @@ export class LineageTree {
       }
     }
     for (const node of this.nodes) {
-      if (node.population === 0 && node.extinctTick < 0) node.extinctTick = sim.tick;
+      if (node.population > 0) node.seen = true;
+      // Chỉ dòng đã từng tồn tại mới "tuyệt chủng" (loài xâm lấn chưa được thả thì không tính).
+      else if (node.seen && node.extinctTick < 0) node.extinctTick = sim.tick;
     }
     if (!allowSplit) return;
 
@@ -192,6 +197,7 @@ export class LineageTree {
       region: deme.region,
       distance,
       population: deme.count,
+      seen: true,
     });
     parentNode.population -= deme.count;
     for (let i = 0; i < a.high; i++) {

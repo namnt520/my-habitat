@@ -58,13 +58,16 @@ export function applyEvent(sim: Simulation, event: SimEvent): void {
   }
 }
 
-/** Nhiên liệu cháy được của một ô (E). */
+/** Nhiên liệu cháy được của một ô (E): cỏ, cây bụi và một phần mùn. Tán rừng không tự cháy nhưng làm lửa lan mạnh hơn. */
 function fuel(sim: Simulation, cell: number): number {
   const world = sim.world;
-  return (
-    world.grass[cell] + world.shrub[cell] + 0.5 * world.detritus[cell] + 120 * world.terrain.canopy[cell]
-  );
+  return world.grass[cell] + world.shrub[cell] + 0.5 * world.detritus[cell];
 }
+
+/** Dưới mức nhiên liệu này lửa không bắt được (nên ô vừa cháy xong không cháy lại cho tới khi cây mọc lại). */
+const FUEL_MINIMUM = 45;
+/** Xác suất lửa lan sang một ô kề mỗi bước, khi nhiên liệu dồi dào và trời khô hạn hoàn toàn. */
+const SPREAD_CHANCE = 0.2;
 
 function ignite(sim: Simulation, cell: number): void {
   const world = sim.world;
@@ -126,7 +129,13 @@ export function updateFire(sim: Simulation): void {
       if (nx < 0 || ny < 0 || nx >= GRID || ny >= GRID) continue;
       const n = ny * GRID + nx;
       if (world.fire[n] > 0 || world.depthAt(n) > 0 || world.terrain.elevation[n] > MOUNTAIN_LEVEL) continue;
-      const chance = 0.5 * clamp01(fuel(sim, n) / 220) * (0.25 + 0.75 * dryness);
+      // Lan mạnh khi nhiều nhiên liệu, trời khô, và dưới tán rừng (lửa tán); mưa dập gần hết.
+      const chance =
+        SPREAD_CHANCE *
+        clamp01((fuel(sim, n) - FUEL_MINIMUM) / 180) *
+        (0.2 + 0.8 * dryness) *
+        (1 + 0.8 * world.terrain.canopy[n]) *
+        (world.climate.rain > 0 ? 0.15 : 1);
       if (roll < chance) {
         world.fire[n] = FIRE_BURN_STEPS;
         next.push(n);
