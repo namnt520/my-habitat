@@ -18,6 +18,7 @@ import {
   MOUNTAIN_LEVEL,
   NUTRIENT_PER_ENERGY,
   SPECIATION_INTERVAL,
+  TERRITORY_INTERVAL,
   WATER_LEVEL_BASE,
   WORLD_SIZE,
 } from './constants';
@@ -41,6 +42,7 @@ import { LineageTree } from './speciation';
 import { stateHash } from './statehash';
 import { Pedigree, type StatsFrame, StatsCollector } from './stats';
 import { type Terrain, cellAt, generateFlatTerrain, generateTerrain } from './terrain';
+import { updateTerritories } from './territory';
 import { World } from './world';
 import { SPECIES_DATA } from '../species/data';
 import { type SpeciesRegistry, createRegistry } from '../species/registry';
@@ -186,8 +188,58 @@ export class Simulation {
 
   // ───────────────────────────── Vòng lặp chính ─────────────────────────────
 
+  /**
+   * Bật đo thời gian từng hệ con. `clock` do bên gọi cung cấp (ví dụ `performance.now`) vì lõi không được
+   * tự đọc đồng hồ thực. Việc đo không ảnh hưởng tới diễn biến mô phỏng.
+   */
+  enableProfiling(clock: () => number): void {
+    this.profile = { clock, environment: 0, indexes: 0, fields: 0, animals: 0, other: 0, ticks: 0 };
+  }
+
+  /** Tổng thời gian (theo đơn vị của `clock`) của từng hệ con kể từ khi bật đo; null nếu chưa bật. */
+  profile: {
+    clock: () => number;
+    environment: number;
+    indexes: number;
+    fields: number;
+    animals: number;
+    other: number;
+    ticks: number;
+  } | null = null;
+
+  private stepProfiled(): void {
+    const p = this.profile!;
+    const t0 = p.clock();
+    updateEnvironment(this.world, this.tick, this.params, this.rng);
+    const t1 = p.clock();
+    this.rebuildIndexes();
+    const t2 = p.clock();
+    updateFields(this.world, this.tick, this.params, this.registry.fields, this.registry.pools, this.ledger);
+    if (this.world.burning.length > 0 && this.tick % FIRE_INTERVAL === 0) updateFire(this);
+    const t3 = p.clock();
+    stepAnimals(this);
+    const t4 = p.clock();
+    this.decayCorpses();
+    if (this.tick % GROUP_INTERVAL === 0) this.groups.update(this);
+    if (this.tick % TERRITORY_INTERVAL === 0) updateTerritories(this);
+    if (this.tick % SPECIATION_INTERVAL === 0 && this.tick > 0)
+      this.lineages.check(this, this.params.speciation);
+    const t5 = p.clock();
+    p.environment += t1 - t0;
+    p.indexes += t2 - t1;
+    p.fields += t3 - t2;
+    p.animals += t4 - t3;
+    p.other += t5 - t4;
+    p.ticks++;
+    this.tick++;
+  }
+
   /** Tiến mô phỏng đúng một tick. */
   step(): void {
+    if (this.profile) {
+      this.stepProfiled();
+      return;
+    }
     updateEnvironment(this.world, this.tick, this.params, this.rng);
     this.rebuildIndexes();
     updateFields(this.world, this.tick, this.params, this.registry.fields, this.registry.pools, this.ledger);
@@ -195,6 +247,7 @@ export class Simulation {
     stepAnimals(this);
     this.decayCorpses();
     if (this.tick % GROUP_INTERVAL === 0) this.groups.update(this);
+    if (this.tick % TERRITORY_INTERVAL === 0) updateTerritories(this);
     if (this.tick % SPECIATION_INTERVAL === 0 && this.tick > 0)
       this.lineages.check(this, this.params.speciation);
     this.tick++;

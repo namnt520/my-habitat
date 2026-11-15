@@ -67,6 +67,7 @@ export const DEATH_CAUSES = DEATH_LABELS.length;
 export const FLAG_BLOCKED = 1; // lần di chuyển gần nhất bị địa hình chặn
 export const FLAG_ARRIVED = 2; // đã tới đích
 export const FLAG_IMMUNE = 4; // đã khỏi bệnh, miễn dịch
+export const FLAG_BREEDER = 16; // con cái đang giữ lãnh thổ sinh sản (xem territory.ts)
 export const FLAG_SAW_THREAT = 8; // đang chạy vì CHÍNH NÓ thấy mối nguy (không phải vì thấy đồng loại chạy)
 
 type FloatArray = Float32Array | Float64Array;

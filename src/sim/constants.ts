@@ -43,6 +43,8 @@ export const WEATHER_INTERVAL = 40;
 export const WATER_FIELD_INTERVAL = 120;
 /** Chu kỳ cập nhật bầy/đàn có tổ chức (tick). */
 export const GROUP_INTERVAL = 30;
+/** Chu kỳ xác định lại lãnh thổ sinh sản (tick). */
+export const TERRITORY_INTERVAL = 60;
 /** Chu kỳ lấy mẫu thống kê (tick). */
 export const STATS_INTERVAL = 60;
 

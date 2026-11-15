@@ -2,7 +2,7 @@ import { FISH_MIN_DEPTH } from '../../sim/constants';
 import { goTo, halt, passable } from '../../sim/actions';
 import type { ThinkContext } from '../../sim/context';
 import { State } from '../../sim/entities';
-import { isAdult, isReadyToMate, mate as performMating } from '../../sim/reproduction';
+import { isReadyToMate, mate as performMating } from '../../sim/reproduction';
 import { cellAt } from '../../sim/terrain';
 import type { BehaviorModule } from '../runtime';
 import { LOCO_LAND } from '../runtime';
@@ -53,38 +53,6 @@ function findDistantMate(ctx: ThinkContext): number {
 }
 
 /**
- * Con cái có "giữ được lãnh thổ sinh sản" không.
- *  - Loài sống theo bầy: trong bầy chỉ vài con cái trưởng thành lớn tuổi nhất (tham số `breeders`) sinh sản.
- *  - Loài có lãnh thổ: không được có con cái trưởng thành lớn tuổi hơn đặt "nhà" trong bán kính lãnh thổ.
- * Đây là cơ chế tự điều hoà mật độ có thật ở thú ăn thịt: quần thể càng dày, càng nhiều con cái không được đẻ,
- * nên kẻ săn không tăng vượt quá mức con mồi nuôi nổi. (Không có con số trần nào được đặt sẵn.)
- */
-function holdsTerritory(ctx: ThinkContext): boolean {
-  const { sim, i, sp } = ctx;
-  const a = sim.animals;
-  const members = sim.members;
-  const group = a.group[i];
-  const age = a.age[i];
-  const range2 = sp.territory * sp.territory;
-  let seniorsInGroup = 0;
-  for (let k = members.start[sp.index]; k < members.start[sp.index + 1]; k++) {
-    const j = members.items[k];
-    if (j === i || a.alive[j] === 0 || a.sex[j] !== 0) continue;
-    if (a.age[j] < age || (a.age[j] === age && a.id[j] > a.id[i])) continue; // trẻ hơn mình: mình có quyền ưu tiên
-    if (!isAdult(sim, j)) continue;
-    if (group >= 0 && a.group[j] === group) {
-      // Trong bầy chỉ vài con cái lớn tuổi nhất được sinh sản.
-      if (++seniorsInGroup >= sp.packBreeders) return false;
-      continue;
-    }
-    const dx = a.homeX[j] - a.homeX[i];
-    const dy = a.homeY[j] - a.homeY[i];
-    if (dx * dx + dy * dy < range2) return false;
-  }
-  return true;
-}
-
-/**
  * Tìm bạn đời và giao phối. Chỉ cá thể cùng phân loài mới ghép đôi được.
  * Loài đẻ trứng (ếch, cá) phải ở trong nước mới đẻ.
  */
@@ -96,7 +64,6 @@ export const mate: BehaviorModule<null> = {
   },
   score(ctx) {
     if (!ctx.wantsMate || !isReadyToMate(ctx.sim, ctx.i)) return 0;
-    if (ctx.sp.territory > 0 && ctx.sim.animals.sex[ctx.i] === 0 && !holdsTerritory(ctx)) return 0;
     return ctx.mate >= 0 ? 0.62 : 0.5;
   },
   apply(ctx) {

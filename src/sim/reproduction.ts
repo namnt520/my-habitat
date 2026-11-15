@@ -6,7 +6,7 @@
 import { MAX_GENES, WORLD_SIZE } from './constants';
 import { capacityOf } from './actions';
 import { clamp } from './detmath';
-import { State } from './entities';
+import { FLAG_BREEDER, State } from './entities';
 import { GENE_REPRO, GENE_SIZE, GENOME_STRIDE, expressGenome, recombine } from './genetics';
 import type { Simulation } from './simulation';
 
@@ -38,6 +38,8 @@ export function isReadyToMate(sim: Simulation, slot: number): boolean {
   const sp = sim.registry.animals[a.species[slot]];
   if ((sp.seasonMask & (1 << sim.world.climate.season)) === 0) return false;
   if (!isAdult(sim, slot)) return false;
+  // Loài có lãnh thổ: con cái không giữ được lãnh thổ thì không sinh sản (xem territory.ts).
+  if (sp.territory > 0 && a.sex[slot] === 0 && (a.flags[slot] & FLAG_BREEDER) === 0) return false;
   const threshold = a.phenotype[slot * MAX_GENES + GENE_REPRO] * (a.sex[slot] === 0 ? 1 : 0.5);
   return a.energy[slot] >= threshold * capacityOf(sim, slot);
 }

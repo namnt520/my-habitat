@@ -49,7 +49,7 @@
     "weanAge": 1200,
     "growth": 0.025,
     "motherReserve": 0.5,
-    "territory": 400
+    "territory": 450
   },
   "genes": [
     {
